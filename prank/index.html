@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Yayy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="notes.html">NOTES</a></li>
+      <li><a href="about.html">ABOUT YOU</a></li>
+      <li><a href="surprise.html">GIFTS</a></li>
+    </ul>
+  </nav>
+
+  <div class="h3" style=" padding-bottom: 30%;">
+    <div style="width: 100%;">
+      <h1 class="header_text" id="intro-paragraph">Hey Miss Universe</h1>
+      <p id="p1" style="display: none;">
+        Its almost 2024.... 
+        You're the sweetest and most amazing girl I hv met this year.....<br><br> You know I miss you alot, I miss Naturals meet, Our Walks, Our talks, I miss the beautiful girl who is mhy cutu,  It'll be a great honour if you would like to give your presence to this idiot who's missing you alot.</p>
+      <p id="p2" style="display: none;">Would you pleaseeee like to go on a date with me <333</p><br>
+    </div>
+
+    <div class="gif_container"></div>
+
+    <div class="buttons" style="display: none;">
+      <button class="btn" id="yesButton" onclick="nextPage()">YES</button>
+      <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">NO</button>
+    </div>
+
+    <script defer>
+      function nextPage() {
+        window.location.href = "yes.html";
+      }
+
+      function moveButton() {
+        var x =
+          Math.random() *
+          (window.innerWidth -
+            document.getElementById("noButton").offsetWidth);
+        var y =
+          Math.random() *
+          (window.innerHeight -
+            document.getElementById("noButton").offsetHeight);
+        document.getElementById("noButton").style.left = `${x}px`;
+        document.getElementById("noButton").style.top = `${y}px`;
+        console.log(Math.random());
+        let p = document.getElementById("noButton").offsetHeight;
+        
+        
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const introParagraph = document.getElementById("intro-paragraph");
+        const p1Paragraph = document.getElementById("p1");
+        const p2Paragraph = document.getElementById("p2");
+        const buttonsContainer = document.querySelector(".buttons");
+
+        const introText = introParagraph.textContent.trim();
+        introParagraph.textContent = "";
+
+        let i = 0;
+
+        function revealText() {
+          if (i < introText.length) {
+            introParagraph.innerHTML += introText.charAt(i);
+            introParagraph.classList.remove("hidden");
+            i++;
+            setTimeout(revealText, 150);
+          } else {
+            // Intro paragraph is done, now reveal p1 paragraph
+            p1Paragraph.style.display = "block";
+            revealP1Text();
+          }
+        }
+
+        function revealP1Text() {
+          const p1Text = p1Paragraph.textContent.trim();
+          p1Paragraph.textContent = "";
+
+          let j = 0;
+
+          function revealTextt() {
+            if (j < p1Text.length) {
+              p1Paragraph.innerHTML += p1Text.charAt(j);
+              p1Paragraph.classList.remove("hidden");
+              j++;
+              setTimeout(revealTextt, 50);
+            } else {
+              // p1 paragraph is done, now reveal p2 paragraph
+              p2Paragraph.style.display = "block";
+              revealP2Text();
+            }
+          }
+
+          revealTextt();
+        }
+
+        function revealP2Text() {
+          const p2Text = p2Paragraph.textContent.trim();
+          p2Paragraph.textContent = "";
+
+          let k = 0;
+
+          function revealText2() {
+            if (k < p2Text.length) {
+              p2Paragraph.innerHTML += p2Text.charAt(k);
+              p2Paragraph.classList.remove("hidden");
+              k++;
+              setTimeout(revealText2, 150);
+            } else {
+              // p2 paragraph is done, now reveal buttons
+              buttonsContainer.style.display = "flex";
+              revealButtons();
+            }
+          }
+
+          revealText2();
+        }
+
+        function revealButtons() {
+          // You can add any animation or effect for the buttons here
+        }
+
+        revealText();
+      });
+    </script>
+  </div>
+</body>
+
+</html>

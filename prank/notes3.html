@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .card {
+            /* height: 25vh; */
+            width: 30%;
+            margin-left: -130px;
+            margin-bottom: -12vh;
+        }
+
+        section {
+            background: url(icon.jpeg);
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            background-color: greenyellow;
+        }
+
+        p{
+        }
+
+        #p1{
+            text-align: center;
+            font-style: italic;
+            opacity: 95%;
+            font-weight: bold;
+
+
+
+        }
+        #p2{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        #p3{
+            font-style: italic;
+            text-align: center;
+            
+        }
+
+        #p4{
+            text-align: right;
+
+        }
+
+        .btn {
+            z-index: 2;
+            margin-top: 36%;
+            /* margin-left: 3%; */
+            border-radius: ;
+            background-color: transparent;
+            border: none;
+        }
+        
+        a{
+            text-decoration: none;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: black;
+            font-weight: bold;
+        }
+
+        
+nav a{
+
+    width: 1.5rem;
+    /* border: solid 1px white; */
+    align-items:center;
+    justify-content: center;
+    text-decoration: none;
+    color:white;
+    
+}
+nav{
+    width: 60vb;
+    height: 10%;
+    /* background-color: #440a0a; */
+    position: fixed;
+    top: 1%;
+    left: 70%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    /* border: solid 1px white; */
+    
+}
+
+li{
+  font-size: 1.25em;
+  text-align: center;
+  flex:1;
+}
+    
+ul{
+    width: 400px;
+    height: 100%;
+    list-style-type: none;
+    display: flex;
+    /* padding-left: 20px; */
+    /* border: solid 1px white; */
+    align-items:center;
+    justify-content: center;
+    /* border-bottom: solid 1px white; */
+}
+
+
+nav a::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: gold;
+    display: block;
+    margin: auto;
+    /* transition: 1s; */
+    transition: left 1s linear,  0.5s ease-in-out ;
+}
+nav a:hover::after{
+    width: 100%;
+}
+        
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="about.html">ABOUT YOU</a></li>
+          <li><a href="surprise.html">GIFTS</a></li>
+        </ul>
+      </nav>
+    <section>
+        <div class="card">
+            <p>Dear Ishuu,</p>
+            <p id="p1">This one for our Bond....</p>
+            <br>
+            <p id="p2">
+                Those walks that we had after college, maybe didn't felt that good...but that was something we needed after a long day out, after so much crazy things that happen in college, It felt good to have those walks,
+                <br>I miss that...Ik somewhere you miss it too..<br>
+                Sorry for all my childish things....You are my Home  
+            </p>
+            
+            <p id="p3">I love you billion times....</p>
+            <p id="p4">~AP</p>
+        </div>
+        <button class="btn"><a href="notes2.html">Read more</a></button> 
+    </section>
+
+    
+</body>
+
+</html>
