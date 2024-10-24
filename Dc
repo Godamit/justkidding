@@ -1,0 +1,147 @@
+//EXPERIMENT 1 : To Encode given DMS using huffman
+
+pkg load communications
+x=input ('Enter the number of symbols:');
+N=1:x;
+disp('The number of symbols are n:');
+disp(N);
+P=input ('Enter the probabilities:');
+disp('The probabilities are:');
+disp(P);
+S=sort(P ,'descend');
+disp('the sorted probabilities are:');
+disp(S);
+dict=huffmandict(N, S);
+disp('The average length of the code is:');
+avglen=sum (S.*cellfun('length',dict));
+disp(avglen);
+H=0;
+for i=1:x
+H=H+(P(i)*log2(1/P(i)));
+end
+disp('entropy is :');
+disp(H);
+disp('bits/msg');
+E=(H/avglen) * 100;
+disp('Efficiency is:');
+disp(E);
+codeword=huffmanenco(N,dict);
+disp('The codewords are:');
+disp(codeword);
+decode=huffmandeco(codeword,dict);
+disp('Decoded output is :');
+disp(decode) ;
+
+
+
+//EXPERIMENT 2 to generate LBC for given G mattrix
+
+%Experiment 2: Linear Block Codes
+k = input("enter the length of msg used:")
+n = input("enter the length of codeword used: ")
+p = input("enter the parity matrix: ")
+G = [eye(k), p]
+m = input("Enter msg word:")
+c = encode(m, n, k, 'linear', G)
+D = decode(c, n, k, 'linear', G)
+H = [p' eye(n-k)]
+R = input("enter the received codeword ")
+s = rem(R*H', 2)
+
+
+%Exp 3: Polar and Unipolar NRZ Waveforms
+%Polar NRZ
+n=input('Enter the input bit:');
+for ii =1:length(n)
+if n(ii)==1;
+nn(ii)=3;
+else nn(ii)=-3;
+endif
+end
+i=1;
+t=0:0.01:length(n);
+for j=1:length(t)
+if t(j)<=i;
+y(j)=nn(i);
+else
+y(j)=nn(i);
+i=i+1;
+endif
+end
+plot(t,y,'-r')
+axis([0 length(n) -10 10])
+
+
+
+
+
+%Exp 4: Generation and Sludy of ASK Waveforms
+clc
+clear all
+n=input('Enter the input bit:');
+fo1 ii =1:length(n)
+if n(ii)==1;
+nn(ii)=3;
+else nn(ii)= O;
+endif
+endfor
+%pulse shaping
+i=1;
+t=0:0.01:length(n);
+for j=l:length(t)
+if t(j)<=i;
+y(j)=nn(i);
+else
+y(j)=nn(i);
+i=i+1;
+endif
+endfor
+plot(t,y, '-r')
+axis([O length(n)-10 10]);
+c=cos(2*pi*2*t);
+x=y.*c;
+%plotting
+figure(1)
+plot(t,y,'-r')
+axis([O length(n) -5 5]);
+figure(2)
+plot(t,x) 
+
+
+%Exp 5: Generation and Study of BPSK Waveforms
+n=input ('Enter the input bit:');
+for ii =1: length(n)
+if n(ii)==1;
+nn(ii)=3;
+else nn(ii)=O;
+endif
+end
+i=1;
+t=0:0.01: length(n);
+for j=1: length(t)
+if t(j)<=i;
+y(j)=nn(i);
+else
+y(j)=nn(i);
+i=i+1;
+endif
+end
+c=cos(2 *pi*2*t);
+x=y.•c;
+figure (1)
+plot(t,y,'-r')
+axis ([O length(n) -5 5]);
+figure (2)
+plot(t,x)
+
+
+
+
+
+
+
+
+
+
+
+
