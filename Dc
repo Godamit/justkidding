@@ -73,22 +73,20 @@ axis([0 length(n) -10 10])
 
 
 
-
-
-%Exp 4: Generation and Sludy of ASK Waveforms
+%Exp 4:ASK WAVEFORM
 clc
 clear all
 n=input('Enter the input bit:');
-fo1 ii =1:length(n)
+for ii =1:length(n)
 if n(ii)==1;
 nn(ii)=3;
-else nn(ii)= O;
+else nn(ii)= 0;
 endif
 endfor
 %pulse shaping
 i=1;
 t=0:0.01:length(n);
-for j=l:length(t)
+for j=1:length(t)
 if t(j)<=i;
 y(j)=nn(i);
 else
@@ -97,13 +95,13 @@ i=i+1;
 endif
 endfor
 plot(t,y, '-r')
-axis([O length(n)-10 10]);
+axis([0 length(n) -10 10]);
 c=cos(2*pi*2*t);
 x=y.*c;
 %plotting
 figure(1)
 plot(t,y,'-r')
-axis([O length(n) -5 5]);
+axis([0 length(n) -5 5]);
 figure(2)
 plot(t,x) 
 
