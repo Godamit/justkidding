@@ -253,7 +253,6 @@ y=c*x1'
 
 
 
-
 clc
 clear all
 N = 501
@@ -302,8 +301,6 @@ figure(6)
 stem(Ymag)
 
 audiowrite('Filterop.wav',y,Fs);
-
-
 
 
 %Aliasing
