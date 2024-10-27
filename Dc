@@ -1,144 +1,341 @@
-//EXPERIMENT 1 : To Encode given DMS using huffman
+%Windows
 
-pkg load communications
-x=input ('Enter the number of symbols:');
-N=1:x;
-disp('The number of symbols are n:');
-disp(N);
-P=input ('Enter the probabilities:');
-disp('The probabilities are:');
-disp(P);
-S=sort(P ,'descend');
-disp('the sorted probabilities are:');
-disp(S);
-dict=huffmandict(N, S);
-disp('The average length of the code is:');
-avglen=sum (S.*cellfun('length',dict));
-disp(avglen);
-H=0;
-for i=1:x
-H=H+(P(i)*log2(1/P(i)));
-end
-disp('entropy is :');
-disp(H);
-disp('bits/msg');
-E=(H/avglen) * 100;
-disp('Efficiency is:');
-disp(E);
-codeword=huffmanenco(N,dict);
-disp('The codewords are:');
-disp(codeword);
-decode=huffmandeco(codeword,dict);
-disp('Decoded output is :');
-disp(decode) ;
-
-
-
-//EXPERIMENT 2 to generate LBC for given G mattrix
-
-%Experiment 2: Linear Block Codes
-k = input("enter the length of msg used:")
-n = input("enter the length of codeword used: ")
-p = input("enter the parity matrix: ")
-G = [eye(k), p]
-m = input("Enter msg word:")
-c = encode(m, n, k, 'linear', G)
-D = decode(c, n, k, 'linear', G)
-H = [p' eye(n-k)]
-R = input("enter the received codeword ")
-s = rem(R*H', 2)
-
-
-%Exp 3: Polar and Unipolar NRZ Waveforms
-%Polar NRZ
-n=input('Enter the input bit:');
-for ii =1:length(n)
-if n(ii)==1;
-nn(ii)=3;
-else nn(ii)=-3;
-endif
-end
-i=1;
-t=0:0.01:length(n);
-for j=1:length(t)
-if t(j)<=i;
-y(j)=nn(i);
-else
-y(j)=nn(i);
-i=i+1;
-endif
-end
-plot(t,y,'-r')
-axis([0 length(n) -10 10])
-
-
-
-%Exp 4:ASK WAVEFORM
 clc
 clear all
-n=input('Enter the input bit:');
-for ii =1:length(n)
-if n(ii)==1;
-nn(ii)=3;
-else nn(ii)= 0;
-endif
-endfor
-%pulse shaping
-i=1;
-t=0:0.01:length(n);
-for j=1:length(t)
-if t(j)<=i;
-y(j)=nn(i);
-else
-y(j)=nn(i);
-i=i+1;
-endif
-endfor
-plot(t,y, '-r')
-axis([0 length(n) -10 10]);
-c=cos(2*pi*2*t);
-x=y.*c;
-%plotting
-figure(1)
-plot(t,y,'-r')
-axis([0 length(n) -5 5]);
-figure(2)
-plot(t,x) 
-
-
-%Exp 5: Generation and Study of BPSK Waveforms
-n=input('Enter the input bit:');
-for ii =1:length(n)
-if n(ii)==1;
-nn(ii)=3;
-else nn(ii)=-3;
-endif
+N= 21
+for n= 0:1:N-1
+  WR(n+1) = 1;
+  WH(n+1) = 0.5-0.5*cos(2*pi*n/(N-1));
+  WHM(n+1) = 0.54-0.46*cos(2*pi*n/(N-1));
+  WB(n+1) = 0.42-0.5*cos(2*pi*n/(N-1))+0.08*cos(4*pi*n/(N-1));
 end
-i=1;
-t=0:0.01:length(n);
-for j=1:length(t)
-if t(j)<=i;
-y(j)=nn(i);
-else
-y(j)=nn(i);
-i=i+1;
-endif
+plot(WR)
+hold on
+plot(WH)
+hold on
+plot(WHM)
+hold on
+plot(WB)
+
+
+
+%linear_convolution_final
+clc
+clear all
+%appending zeros
+x1=[1 4 5 6 7 8 9 10];
+x2=[4 8 4 5];
+N1= length(x1);
+N2=length(x2);
+N=N1+N2-1
+  x1=[x1 zeros(1,N-N1)]
+  x2=[x2 zeros(1, N-N2)]
+
+x1,x2
+%%circular matrix
+N2=length(x2)
+b=x2;
+c=x2';
+for n=1:1:N-1
+  b=[b(N) b(1:N-1)];
+  c=[c b'];
+
 end
-plot(t,y,'-r')
-axis([0 length(n) -10 10])
-c=cos(2*pi*2*t);
-x=y.*c;
-%plotting
+c
+%linear convolution
+y=c*x1'
+
+
+
+
+
+FIR_LPF_2
+clc
+clear all
+%Impulse Response of LPF
+N = 501
+Fs = 2000
+for n = 0:1:N-1
+  Hd(n+1) = sin(0.4*pi*(n-250))/(pi*(n-250));
+end
+Hd(251) = 0.4;
 figure(1)
-plot(t,y,'r-')
-axis([0 length(n) -5 5]);
+plot(Hd)
+%%%%%%%%%%%
+
+%Window
+for n= 0:1:N-1
+  W(n+1) = 0.54-0.46*cos(2*pi*n/(N-1));
+end
 figure(2)
-plot(t,x)
+plot(W)
+%%%%%%%%%%%%
+
+%Final Impulse response
+h = Hd.*W;
+figure(3)
+plot(h)
+freqz(h,1,N,Fs)
+
+
+
+
+FIR_LPF_1
+clc
+clear all
+%Impulse Response of LPF
+N = 51
+Fs = 16000
+for n = 0:1:N-1
+  Hd(n+1) = sin(0.6*pi*(n-25))/(pi*(n-25));
+end
+Hd(26) = 0.6;
+figure(1)
+plot(Hd)
+%%%%%%%%%%%
+
+%Window
+for n= 0:1:N-1
+  W(n+1) = 1;
+end
+figure(2)
+plot(W)
+%%%%%%%%%%%%
+
+%Final Impulse response
+h = Hd.*W;
+figure(3)
+plot(h)
+freqz(h,1,N,Fs)
 
 
 
 
 
+%FIR_BPF
+
+clc
+clear
+%x=[1 2 3 4 5 6 7 6 5 4 3 2 1 1 2 3 4 5 6 7 6 5 4 3 2 1 1 2 3 4 5 6 7 6 5 4 3 2 1]
+
+[x1,Fs]=audioread('Song2.wav');
+x=x1(:,1)';
+
+X=fft(x);
+Xmag=abs(X);
+figure(1)
+stem (Xmag)
+N=501
+Fs=8000;
+for n=0:1:N-1;
+  hd(n+1)=sin(0.625*pi*(n-250))/(pi*(n-250))-sin(0.2*pi*(n-250))/(pi*(n-250));
+end
+hd(251)=0.4250;
+figure(2)
+plot (hd)
+
+%window function
+for n=0:1:N-1
+ wb(n+1)= 1;
+end
+figure(3), plot(wb)
+h=hd.*wb;
+figure(4),plot(h)
+plot(h)
+freqz(h,1,N,Fs)
+%perform filtering
+y=conv(x,h);
+%plot fft of output
+Y=fft(y);
+Ymag=abs(Y);
+figure(6)
+stem(Ymag)
+audiowrite('Laxmi_BPF.wav',y,Fs)
+
+
+
+
+
+
+Down_Up_Song
+%Down Sampling
+clc
+clear
+%x = [1 2 3 4 5 6 7 6 5 4 3 2 1 2 3 4 5 6 7 6 5 4 3 2 1 2 3 4 5 6 7 6 5 4 3 2 1];
+[x1,Fs] = audioread('Song2.wav');
+x = x1(:,1);
+N1 = length(x)
+for n = 1:1:N1/2
+  y(n) = x(2*n);
+end
+y;
+N2 = length(y)
+%Up Sampling
+for n = 2:2:2*N2
+  z(n) = y(n/2);
+end
+z;
+subplot(4,1,1)
+stem(x),title('Original Signal')
+subplot(4,1,2)
+stem(y), title('Down Sampled Signal')
+subplot(4,1,3)
+stem(z), title('Up Sampled Signal')
+%Averaged Up sample
+N3 = length(z)
+z1 = z;
+for n = 3:2:N3-1
+  z1(n) = (z(n+1)+z(n-1))/2;
+end
+z1;
+subplot(4,1,4)
+stem(z1)
+title('Average Up Sampled Signal')
+audiowrite('Vaish_Down.wav',y,Fs)
+audiowrite('Vaish_Up.wav',z,Fs)
+audiowrite('Vaish_Upavg.wav',z1,Fs)
+
+
+
+
+
+DFT_Example
+
+%DFT Program
+clc
+clear
+x = [1 2 4 3 34 8 23 6 12 65 43 56 90 76 9]
+N = length(x)
+for n = 0:1:N-1
+  for k = 0:1:N-1
+    W(n+1,k+1) = exp(-j*2*pi*n*k/N); %DFT matrix
+  endfor
+end
+W;
+X = W*x'  %DFT values
+X_mag = abs(X)  %Magnitude Spectrum
+subplot(2,1,1)
+stem(x), title('Input signal')
+subplot(2,1,2)
+stem(X_mag), title('Magnitude Spectrum')
+
+
+
+
+circular_convolution_final
+clc
+clear all
+%appending zeros
+x1=[1 4 5 9 3 6 2 ];
+x2=[4 8 ];
+N1= length(x1);
+N2=length(x2);
+if N1<N2
+  x1=[x1 zeros(1,N2-N1)]
+else
+  x2=[x2 zeros(1, N1-N2)]
+endif
+x1,x2
+%%circular matrix
+N2=length(x2)
+b=x2;
+c=x2';
+for n=1:1:N2-1
+  b=[b(N2) b(1:N2-1)];
+  c=[c b'];
+
+end
+c
+%circular convolution
+y=c*x1'
+
+
+
+
+
+
+clc
+clear all
+N = 501
+[x,Fs] = audioread('barfi_noise_4.wav');
+figure(1)
+plot(x)
+%%%%%%%
+
+%DFT_Example
+X = fft(x);
+X_mag = abs(X);
+figure(2)
+stem(X_mag)
+%%%%%
+
+%Desired Impulse Response
+for n = 0:1:N-1
+  Hd(n+1) = sin(0.725*pi*(n-250))/(pi*(n-250));
+end
+Hd(251) = 0.725;
+figure(3)
+plot(Hd)
+%%%%%%%%%%%%%%%%
+
+%Window Function
+for n= 0:1:N-1
+  W(n+1) = 1;
+end
+figure(4)
+plot(W)
+%%%%%%%%%%%%%%
+
+%Final Impulse response
+H = Hd.*W;
+figure(5)
+plot(H)
+freqz(H,1,N,Fs);
+
+%Implement Filter
+y = conv(x,H);
+%%%%%%%%%%
+
+Y = fft(y);
+Ymag = abs(Y);
+figure(6)
+stem(Ymag)
+
+audiowrite('Filterop.wav',y,Fs);
+
+
+
+
+%Aliasing
+clc
+clear
+F1 = 10
+F2 = 15
+F3 = 18
+F4 = 50
+F5 = 90
+F6 = 410
+Fs = 825
+for n = 1:1:50
+  x1(n) = 3*cos(2*pi*(F1/Fs)*n);
+  x2(n) = 3*cos(2*pi*(F2/Fs)*n);
+  x3(n) = 3*cos(2*pi*(F3/Fs)*n);
+  x4(n) = 3*cos(2*pi*(F4/Fs)*n);
+  x5(n) = 3*cos(2*pi*(F5/Fs)*n);
+  x6(n) = 3*cos(2*pi*(F6/Fs)*n);
+ endfor
+ figure(1)
+ stem(x1)
+ figure(2)
+ stem(x2)
+ figure(3)
+ stem(x3)
+ figure(4)
+ stem(x4)
+ figure(5)
+ stem(x5)
+ figure(6)
+ stem(x6)
 
 
 
